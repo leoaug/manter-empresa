@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        
+        <link rel="stylesheet" href="#{request.contextPath}/resources/ecuador-layout/css/primeicons.css" />
+        <link rel="stylesheet" href="#{request.contextPath}/resources/ecuador-layout/css/primeflex.min.css" />
+        <link rel="stylesheet" href="#{request.contextPath}/resources/ecuador-layout/css/layout-blue.css" />
+        
+        
+        
+        
+        
+    </f:facet>
+    <title>Manter Empresa</title>
+</h:head>
+
+<h:body styleClass="login-body">
+	
+	    <div class="login-topbar">
+	        <h:link outcome="/dashboard" class="logo">
+	            <p:graphicImage name="images/ecuador-logo.png" library="ecuador-layout"/>
+	        </h:link>
+	    </div>
+	    <div class="login-image">
+	        <div class="login-panel">
+	        	<h:form>
+	        		<p:growl showDetail="true"/>
+		            <p:graphicImage name="images/ecuador-orange-logo.png" library="ecuador-layout"/>
+		            <div class="col-12">
+		                <div class="input-wrapper">
+		                    <p:inputText placeholder="Username" required="true" requiredMessage="Informe o Login"/>
+		                </div>
+		            </div>
+		            <div class="col-12">
+		                <div class="input-wrapper">
+		                    <p:inputText placeholder="Password" required="true" requiredMessage="Informe a Senha"/>
+		                </div>
+		            </div>
+		            <div class="checkbox-container">
+		                <div class="remember-me">
+		                    <p:selectBooleanCheckbox/>
+		                    <span>Remember me</span>
+		                </div>
+		                <p:commandButton value="Login" action="#{loginControlador.login}" update="@form"/>
+		            </div>
+		
+		            <div class="separator"></div>
+		
+		            <a href="#" class="subinfo">
+		                <span>Forgot your password?</span>
+		            </a>
+				</h:form>
+	        </div>
+	    </div>
+	  
+</h:body>
+
+</html>
