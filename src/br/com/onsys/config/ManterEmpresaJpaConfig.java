@@ -1,26 +1,29 @@
 package br.com.onsys.config;
 
-import javax.naming.NamingException;
-import org.springframework.jndi.JndiTemplate;
-import javax.sql.DataSource;
-import org.springframework.jmx.support.RegistrationPolicy;
-import org.springframework.jmx.export.annotation.AnnotationMBeanExporter;
 import java.util.Properties;
-import org.springframework.instrument.classloading.LoadTimeWeaver;
-import org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
-import br.com.bb.amb.sadc.modelo.persistencia.util.SadcLocalContainerEntityManagerFactoryBean;
+
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.instrument.classloading.LoadTimeWeaver;
+import org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver;
+import org.springframework.jmx.export.annotation.AnnotationMBeanExporter;
+import org.springframework.jmx.support.RegistrationPolicy;
+import org.springframework.jndi.JndiTemplate;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import br.com.bb.amb.sadc.modelo.persistencia.util.SadcLocalContainerEntityManagerFactoryBean;
+import br.com.onsys.constants.ManterEmpresaConstant;
 
 @Configuration
-public class ManterEmpresaJpaConfig
-{
-    @Bean(name = { "transactionManagerManterEmpresa" })
+public class ManterEmpresaJpaConfig {
+    @Bean(name = { ManterEmpresaConstant.TRANSACTION_MANAGER_MANTER_EMPRESA })
     @Primary
     public PlatformTransactionManager transactionManager() throws Exception {
         try {
@@ -31,14 +34,14 @@ public class ManterEmpresaJpaConfig
         }
     }
     
-    @Bean(name = { "entityManagerManterEmpresa" })
+    @Bean(name = { ManterEmpresaConstant.ENTITY_MANAGER_MANTER_EMPRESA })
     public SadcLocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
         try {
             final SadcLocalContainerEntityManagerFactoryBean factoryBean = new SadcLocalContainerEntityManagerFactoryBean();
-            factoryBean.setPersistenceUnitName("manterEmpresa");
+            factoryBean.setPersistenceUnitName(ManterEmpresaConstant.PERSISTENCE_UNIT_MANTER_EMPRESA);
             factoryBean.setDataSource(this.dataSource());
             this.eclipseLinkConfig(factoryBean);
-            factoryBean.setPackagesToScan(new String[] { "br.com.onsys.model" });
+            factoryBean.setPackagesToScan(new String[] { ManterEmpresaConstant.PACKAGE_SCAN_MODEL_EMPRESA });
             return factoryBean;
         }
         catch (Exception e) {
@@ -69,13 +72,13 @@ public class ManterEmpresaJpaConfig
     @Bean
     public AnnotationMBeanExporter annotationMBeanExporter() {
         final AnnotationMBeanExporter annotationMBeanExporter = new AnnotationMBeanExporter();
-        annotationMBeanExporter.addExcludedBean("dataSourceTecnotour");
+        annotationMBeanExporter.addExcludedBean(ManterEmpresaConstant.DATA_SOURCE_MANTER_EMPRESA);
         annotationMBeanExporter.setRegistrationPolicy(RegistrationPolicy.IGNORE_EXISTING);
         return annotationMBeanExporter;
     }
     
-    @Bean(name = { "dataSourceTecnotour" })
+    @Bean(name = { ManterEmpresaConstant.DATA_SOURCE_MANTER_EMPRESA })
     public DataSource dataSource() throws NamingException {
-        return (DataSource)new JndiTemplate().lookup("java:comp/env/jdbc/manterEmpresaDS");
+        return (DataSource)new JndiTemplate().lookup("java:comp/env/" + ManterEmpresaConstant.DATA_SOURCE_MANTER_EMPRESA_URL);
     }
 }

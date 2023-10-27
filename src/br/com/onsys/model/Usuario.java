@@ -1,12 +1,15 @@
 package br.com.onsys.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +35,9 @@ public class Usuario implements Serializable{
 	
 	@Column(nullable = false,length = 60)
 	private String email;
+	
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List <UsuarioEmpresa> usuariosEmpresas;
 
 	public Long getId() {
 		return id;
@@ -71,6 +77,16 @@ public class Usuario implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	
+
+	public List<UsuarioEmpresa> getUsuariosEmpresas() {
+		return usuariosEmpresas;
+	}
+
+	public void setUsuariosEmpresas(List<UsuarioEmpresa> usuariosEmpresas) {
+		this.usuariosEmpresas = usuariosEmpresas;
 	}
 
 	@Override

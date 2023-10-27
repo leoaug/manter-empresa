@@ -8,6 +8,8 @@ import br.com.onsys.model.Empresa;
 import br.com.onsys.model.Usuario;
 import br.com.onsys.model.UsuarioEmpresa;
 import br.com.onsys.persistence.repository.ManterEmpresaRepository;
+import br.com.bb.amb.jpa.constantes.Constantes;
+import br.com.bb.amb.jpa.persistencia.BBTSQuery;
 
 @Service
 public class UsuarioEmpresaService extends ManterEmpresaRepository <UsuarioEmpresa> {
@@ -22,6 +24,12 @@ public class UsuarioEmpresaService extends ManterEmpresaRepository <UsuarioEmpre
 			super.salvar(usuarioEmpresa);
 		}
 		
+	}
+
+	public List<UsuarioEmpresa> consultarUsuarioEmpresaPorUsuarioLogado(Usuario usuario) throws Exception {
+		BBTSQuery<UsuarioEmpresa> query = super.inicializaBbtsQuery();
+		query.adicionarFiltro("usuario.id", usuario.getId(), Constantes.OPERACAO_IGUAL);
+		return super.consultarPorParametrosANDList(query);
 	}
 
 }

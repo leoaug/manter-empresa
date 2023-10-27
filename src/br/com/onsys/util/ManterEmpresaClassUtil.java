@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
-public class BBTSClassUtil <T extends Serializable> implements Serializable {
+public class ManterEmpresaClassUtil <T extends Serializable> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

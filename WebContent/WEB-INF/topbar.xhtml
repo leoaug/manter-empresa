@@ -24,7 +24,18 @@
 
         <a id="topbar-profile-menu-button" href="#">
             <span style="font-weight: bold">#{loginControlador.sessaoDTO.usuario.apelido}</span>
-            <p:graphicImage name="images/avatar.png" library="ecuador-layout" styleClass="topbar-profile" />
+            
+            <h:graphicImage value="#{loginControlador.sessaoDTO.fotoEmpresa}" 
+            				width="45" 
+            				height="45" 
+            				rendered="#{loginControlador.sessaoDTO.fotoEmpresa ne null}"
+            				style="border-radius: 50%;" />
+            
+            <p:graphicImage name="images/sem-perfil.png" 
+            				library="ecuador-layout" 
+            				rendered="#{loginControlador.sessaoDTO.fotoEmpresa eq null}"           				
+            				styleClass="topbar-profile" />
+           
             <i class="pi pi-caret-down"/>
         </a>
 

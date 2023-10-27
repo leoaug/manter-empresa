@@ -14,6 +14,7 @@ import br.com.bb.amb.sadc.util.SadcFacesUtil;
 import br.com.onsys.dto.SessaoDTO;
 import br.com.onsys.model.Usuario;
 import br.com.onsys.service.UsuarioService;
+import br.com.onsys.util.ArquivoUtil;
 
 
 @Controller(value = "loginControlador")
@@ -47,10 +48,18 @@ public class LoginControlador  implements Serializable {
 	public String login() throws Exception {
 		try {
 
-			Usuario usuario = usuarioService.consultarUsuarioPorLoginESenha(getUsuario().getEmail(),getUsuario().getSenha());
+			Usuario usuarioLogin = usuarioService.consultarUsuarioPorLoginESenha(getUsuario().getEmail(),getUsuario().getSenha());
 			
-			if(usuario != null) {
-				getSessaoDTO().setUsuario(usuario);
+			if(usuarioLogin != null) {
+				if(!usuarioLogin.getUsuariosEmpresas().isEmpty()) {	
+					byte[] arrayByteFoto = ArquivoUtil.converterURLtoByte(usuarioLogin.getUsuariosEmpresas().get(0).getEmpresa().getUrlLogo());
+					
+					if(arrayByteFoto != null) {
+						getSessaoDTO().setFotoEmpresa(ArquivoUtil.montarArquivoBASE64(".png", arrayByteFoto));
+	
+					} 
+				}
+				getSessaoDTO().setUsuario(usuarioLogin);
 
 				return "/WEB-INF/template.xhtml";
 			} else {
@@ -64,6 +73,8 @@ public class LoginControlador  implements Serializable {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			 FacesContext.getCurrentInstance().
+	        	addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", e.getMessage()));
 			throw e;
 		}	
 			

@@ -2,6 +2,7 @@ package br.com.onsys.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,16 +22,14 @@ import br.com.onsys.service.UsuarioService;
 
 @Controller(value = "usuarioEmpresaController")
 @Scope("view")
-public class UsuarioEmpresaController {
+public class UsuarioEmpresaController extends ManterEmpresaController{
 
 	private UsuarioEmpresa usuarioEmpresa;
 	
 	private List <Usuario> usuarios;
 		
 	private DualListModel<Empresa> empresas;
-	
-	private List <Empresa> empresasSelecionadas;
-	
+		
 	@Autowired
 	private UsuarioEmpresaService usuarioEmpresaService;
 	
@@ -44,11 +43,24 @@ public class UsuarioEmpresaController {
 	public void onInit()  {
 		try {	
 			setUsuarioEmpresa(new UsuarioEmpresa());	
-			getUsuarioEmpresa().setUsuario(new Usuario());
+			getUsuarioEmpresa().setUsuario(getSessaoDTO().getUsuario());
 			getUsuarioEmpresa().setEmpresa(new Empresa());
-			setUsuarios(usuarioService.getEntidades());			
-			setEmpresas(new DualListModel<>(empresaService.getEntidades(), Collections.emptyList()));		
-			setEmpresasSelecionadas(Collections.emptyList());
+			setUsuarios(usuarioService.getEntidades());	
+			
+			List <UsuarioEmpresa> listaUsuarioEmpresaLogado = usuarioEmpresaService.
+					consultarUsuarioEmpresaPorUsuarioLogado(getSessaoDTO().getUsuario());
+			List <Empresa> listaTotal = empresaService.getEntidades();
+			
+			if(listaUsuarioEmpresaLogado.isEmpty()) {
+				setEmpresas(new DualListModel<>(listaTotal, Collections.emptyList()));
+			} else {
+				List <Empresa> listaEmpresasUsuarioLogado = listaUsuarioEmpresaLogado.stream().
+						map(usuarioEmpresa -> usuarioEmpresa.getEmpresa()).collect(Collectors.toList());	
+				listaTotal.removeAll(listaEmpresasUsuarioLogado);				
+				setEmpresas(new DualListModel<>(listaTotal, listaEmpresasUsuarioLogado));
+			}
+			
+		
 		} catch (Exception e) {
 			e.printStackTrace();	
 		}	
@@ -56,7 +68,7 @@ public class UsuarioEmpresaController {
 	
 	public void salvar() throws Exception {
 		
-			
+		usuarioEmpresaService.excluirEntidades(getUsuarioEmpresa().getUsuario().getUsuariosEmpresas());	
 		usuarioEmpresaService.salvarUsuarioEmpresas(getUsuarioEmpresa().getUsuario(),getEmpresas().getTarget());
 		
 		onInit();
@@ -89,13 +101,6 @@ public class UsuarioEmpresaController {
 		this.empresas = empresas;
 	}
 
-	public List<Empresa> getEmpresasSelecionadas() {
-		return empresasSelecionadas;
-	}
-
-	public void setEmpresasSelecionadas(List<Empresa> empresasSelecionadas) {
-		this.empresasSelecionadas = empresasSelecionadas;
-	}
-
+	
 	
 }
