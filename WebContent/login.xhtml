@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <f:facet name="first">
+    
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
@@ -15,12 +15,8 @@
         <link rel="stylesheet" href="#{request.contextPath}/resources/ecuador-layout/css/primeicons.css" />
         <link rel="stylesheet" href="#{request.contextPath}/resources/ecuador-layout/css/primeflex.min.css" />
         <link rel="stylesheet" href="#{request.contextPath}/resources/ecuador-layout/css/layout-blue.css" />
-        
-        
-        
-        
-        
-    </f:facet>
+                     
+    
     <title>Manter Empresa</title>
 </h:head>
 
@@ -38,12 +34,18 @@
 		            <p:graphicImage name="images/ecuador-orange-logo.png" library="ecuador-layout"/>
 		            <div class="col-12">
 		                <div class="input-wrapper">
-		                    <p:inputText placeholder="Username" required="true" requiredMessage="Informe o Login"/>
+		                    <p:inputText placeholder="Email" 
+		                    			 value="#{loginControlador.usuario.email}" 
+		                    			 required="true" 
+		                    			 requiredMessage="Informe o Login"/>
 		                </div>
 		            </div>
-		            <div class="col-12">
+		            <div class="col-8">
 		                <div class="input-wrapper">
-		                    <p:inputText placeholder="Password" required="true" requiredMessage="Informe a Senha"/>
+		                    <p:password placeholder="Password" 
+		                    			value="#{loginControlador.usuario.senha}" 
+		                    			required="true" 
+		                    			requiredMessage="Informe a Senha"/>
 		                </div>
 		            </div>
 		            <div class="checkbox-container">
