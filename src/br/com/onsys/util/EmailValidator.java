@@ -13,7 +13,7 @@ public class EmailValidator implements Validator {
 		String email = (String) value;
 
         if (!ManterEmpresaValidacao.isValidEmail(email)) {
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso", "Email inválido"));
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email Inválido", ""));
         }
 		
 	}

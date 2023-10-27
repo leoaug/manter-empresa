@@ -36,7 +36,7 @@ public class UsuarioController {
 		onInit();
 		
 		FacesContext.getCurrentInstance().
-      		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario cadastrado."));
+			addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário cadastrado.", ""));
 	}
 
 	public Usuario getUsuario() {

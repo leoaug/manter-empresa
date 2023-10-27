@@ -5,6 +5,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <div class="layout-topbar">
+    	<h:form>
         <a href="#" id="topbar-menu-button">
             <i class="pi pi-angle-left arrow"/>
             <i class="pi pi-angle-up mobile"/>
@@ -18,7 +19,7 @@
         </div>
 	  
         <h:link outcome="/dashboard" styleClass="logo-container">
-            <p:graphicImage name="images/ecuador-logo.png" library="ecuador-layout" />
+             <p:graphicImage name="images/logo-king.jpeg" style="width:80px; height: 30px" library="ecuador-layout"/>
         </h:link>
 
         <a id="topbar-profile-menu-button" href="#">
@@ -67,6 +68,13 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <p:link outcome="/login.xhtml">
+                    <i class="pi pi-fw pi-user"/>
+                    <span class="topbar-item-name">Sair</span>
+                    <span class="topbar-submenuitem-badge">4</span>
+                </p:link>
             </li>
             <li>
                 <a href="#">
@@ -137,6 +145,7 @@
         <a href="#" id="right-panel-button">
             <i class="pi pi-angle-double-left"/>
         </a>
+        </h:form>
     </div>
 
 </ui:composition>

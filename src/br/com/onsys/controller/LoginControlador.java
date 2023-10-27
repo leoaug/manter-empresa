@@ -71,10 +71,11 @@ public class LoginControlador  implements Serializable {
 
 
 
-	public void logout() throws Exception {
+	public String logout() throws Exception {
 		try {
 		
 
+			  return "/login.xhtml?faces-redirect=true";
 			
 			
 			

@@ -36,7 +36,7 @@ public class EmpresaController {
 		onInit();
 		
 		FacesContext.getCurrentInstance().
-      		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Empresa cadastrada."));
+  			addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Empresa cadastrada.", ""));
 	}
 
 	public Empresa getEmpresa() {
