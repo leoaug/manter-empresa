@@ -21,16 +21,16 @@ public class Usuario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(length = 60)
+	@Column(nullable = false,length = 60)
 	private String nome;
 	
-	@Column(length = 30)
+	@Column(nullable = false,length = 30)
 	private String apelido;
 	
-	@Column(length = 16)
+	@Column(nullable = false,length = 16)
 	private String senha;
 	
-	@Column(length = 60)
+	@Column(nullable = false,length = 60)
 	private String email;
 
 	public Long getId() {

@@ -1,5 +1,7 @@
 package br.com.onsys.service;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import br.com.onsys.model.Usuario;
@@ -17,6 +19,7 @@ public class UsuarioService extends ManterEmpresaRepository<Usuario>{
 		query.adicionarFiltro("senha", senha, Constantes.OPERACAO_IGUAL);
 		return super.consultarPorParametrosAND(query);
 	}
+
 
 }
   

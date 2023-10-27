@@ -21,13 +21,12 @@ public class Empresa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(length = 20)
+	@Column(nullable = false,length = 20)
 	private String codigo;
 	
-	@Column(length = 60)
+	@Column(nullable = false,length = 60)
 	private String descricao;
 	
-	@Column(length = 60)
 	private String urlLogo;
 
 	public Long getId() {

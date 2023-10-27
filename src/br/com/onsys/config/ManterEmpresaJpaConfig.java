@@ -62,6 +62,7 @@ public class ManterEmpresaJpaConfig
         prop.setProperty("eclipselink.flush-clear.cache", "Drop");
         prop.setProperty("eclipselink.cache.shared.default", "false");
         prop.setProperty("eclipselink.ddl-generation","create-or-extend-tables");
+        //prop.setProperty("eclipselink.validation.mode","AUTO");
         return prop;
     }
     

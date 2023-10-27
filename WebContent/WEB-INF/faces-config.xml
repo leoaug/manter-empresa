@@ -13,4 +13,9 @@
 		</locale-config>
 	</application>
 	
+	<validator>
+		<validator-id>emailValidator</validator-id>
+        <validator-class>br.com.onsys.util.EmailValidator</validator-class>
+	</validator>
+	
 </faces-config>
