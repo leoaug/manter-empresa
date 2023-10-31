@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.primefaces.model.DualListModel;
@@ -44,12 +45,16 @@ public class UsuarioEmpresaController extends ManterEmpresaController{
 	public void onInit()  {
 		try {	
 			setUsuarioEmpresa(new UsuarioEmpresa());	
-			getUsuarioEmpresa().setUsuario(getSessaoDTO().getUsuario());
+			HttpServletRequest requestObj = (HttpServletRequest)         
+					FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			Usuario usuarioLogado = (Usuario) requestObj.getSession().getAttribute("usuarioLogado");
+			
+			getUsuarioEmpresa().setUsuario(usuarioLogado);
 			getUsuarioEmpresa().setEmpresa(new Empresa());
 			setUsuarios(usuarioService.getEntidades());	
 			
 			List <UsuarioEmpresa> listaUsuarioEmpresaLogado = usuarioEmpresaService.
-					consultarUsuarioEmpresaPorUsuarioLogado(getSessaoDTO().getUsuario());
+					consultarUsuarioEmpresaPorUsuarioLogado(usuarioLogado);
 			List <Empresa> listaTotal = empresaService.getEntidades();
 			
 			if(listaUsuarioEmpresaLogado.isEmpty()) {

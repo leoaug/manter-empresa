@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import br.com.onsys.dto.SessaoDTO;
 import br.com.onsys.model.Usuario;
@@ -58,6 +59,9 @@ public class LoginControlador  implements Serializable {
 					} 
 				}
 				getSessaoDTO().setUsuario(usuarioLogin);
+				HttpServletRequest requestObj = (HttpServletRequest)         
+						FacesContext.getCurrentInstance().getExternalContext().getRequest();
+				requestObj.getSession().setAttribute("usuarioLogado", usuarioLogin);
 
 				return "/WEB-INF/template.xhtml";
 			} else {
