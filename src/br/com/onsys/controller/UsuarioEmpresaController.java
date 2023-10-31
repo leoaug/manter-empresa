@@ -1,13 +1,14 @@
 package br.com.onsys.controller;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,10 @@ import br.com.onsys.service.UsuarioEmpresaService;
 import br.com.onsys.service.UsuarioService;
 
 @Named
-@RequestScoped
-public class UsuarioEmpresaController extends ManterEmpresaController{
+@ViewScoped
+public class UsuarioEmpresaController implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private UsuarioEmpresa usuarioEmpresa;
 	
@@ -40,7 +43,7 @@ public class UsuarioEmpresaController extends ManterEmpresaController{
 	
 	@Inject
 	private EmpresaService empresaService;
-	
+	 
 	@PostConstruct
 	public void onInit()  {
 		try {	
@@ -48,7 +51,7 @@ public class UsuarioEmpresaController extends ManterEmpresaController{
 			HttpServletRequest requestObj = (HttpServletRequest)         
 					FacesContext.getCurrentInstance().getExternalContext().getRequest();
 			Usuario usuarioLogado = (Usuario) requestObj.getSession().getAttribute("usuarioLogado");
-			
+			 
 			getUsuarioEmpresa().setUsuario(usuarioLogado);
 			getUsuarioEmpresa().setEmpresa(new Empresa());
 			setUsuarios(usuarioService.getEntidades());	
