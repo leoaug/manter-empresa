@@ -1,14 +1,13 @@
 package br.com.onsys.controller;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import javax.inject.Named;
 
 import br.com.onsys.dto.SessaoDTO;
 
-@Controller(value = "manterEmpresaController")
-@Scope("view")
+@Named
+@RequestScoped
 public class ManterEmpresaController {
 
 	private LoginControlador loginControlador;

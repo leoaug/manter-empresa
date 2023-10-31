@@ -2,16 +2,16 @@ package br.com.onsys.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.enterprise.context.RequestScoped;
 
+import br.com.bb.amb.jpa.constantes.Constantes;
+import br.com.bb.amb.jpa.persistencia.BBTSQuery;
 import br.com.onsys.model.Empresa;
 import br.com.onsys.model.Usuario;
 import br.com.onsys.model.UsuarioEmpresa;
 import br.com.onsys.persistence.repository.ManterEmpresaRepository;
-import br.com.bb.amb.jpa.constantes.Constantes;
-import br.com.bb.amb.jpa.persistencia.BBTSQuery;
 
-@Service
+@RequestScoped
 public class UsuarioEmpresaService extends ManterEmpresaRepository <UsuarioEmpresa> {
 
 	private static final long serialVersionUID = 1L;

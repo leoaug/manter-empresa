@@ -3,22 +3,20 @@ package br.com.onsys.controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-
-import br.com.bb.amb.sadc.util.SadcFacesUtil;
 import br.com.onsys.dto.SessaoDTO;
 import br.com.onsys.model.Usuario;
 import br.com.onsys.service.UsuarioService;
 import br.com.onsys.util.ArquivoUtil;
 
 
-@Controller(value = "loginControlador")
-@Scope("session")
+@Named
+@SessionScoped
 public class LoginControlador  implements Serializable {
 
 	
@@ -29,7 +27,7 @@ public class LoginControlador  implements Serializable {
 	
 	private Usuario usuario;
 	
-	@Autowired
+	@Inject
 	private UsuarioService usuarioService;
 
 	@PostConstruct
@@ -92,7 +90,9 @@ public class LoginControlador  implements Serializable {
 			
 		}  catch (Exception e) {
 			e.printStackTrace();
-			SadcFacesUtil.showMessageErrorDetail("Erro logout");
+
+			FacesContext.getCurrentInstance().
+	  			addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro logout", ""));
 			throw e;
 		}
 		

@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.primefaces.model.DualListModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 
 import br.com.onsys.model.Empresa;
 import br.com.onsys.model.Usuario;
@@ -20,8 +21,8 @@ import br.com.onsys.service.EmpresaService;
 import br.com.onsys.service.UsuarioEmpresaService;
 import br.com.onsys.service.UsuarioService;
 
-@Controller(value = "usuarioEmpresaController")
-@Scope("view")
+@Named
+@RequestScoped
 public class UsuarioEmpresaController extends ManterEmpresaController{
 
 	private UsuarioEmpresa usuarioEmpresa;
@@ -30,13 +31,13 @@ public class UsuarioEmpresaController extends ManterEmpresaController{
 		
 	private DualListModel<Empresa> empresas;
 		
-	@Autowired
+	@Inject
 	private UsuarioEmpresaService usuarioEmpresaService;
 	
-	@Autowired
+	@Inject
 	private UsuarioService usuarioService;
 	
-	@Autowired
+	@Inject
 	private EmpresaService empresaService;
 	
 	@PostConstruct
@@ -66,6 +67,7 @@ public class UsuarioEmpresaController extends ManterEmpresaController{
 		}	
 	}
 	
+	@Transactional
 	public void salvar() throws Exception {
 		
 		usuarioEmpresaService.excluirEntidades(getUsuarioEmpresa().getUsuario().getUsuariosEmpresas());	

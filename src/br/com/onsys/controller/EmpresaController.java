@@ -1,23 +1,23 @@
 package br.com.onsys.controller;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import br.com.onsys.model.Empresa;
 import br.com.onsys.service.EmpresaService;
 
-@Controller(value = "empresaController")
-@Scope("view")
+@Named
+@RequestScoped
 public class EmpresaController {
 
 	private Empresa empresa;
 	
-	@Autowired
+	@Inject
 	private EmpresaService empresaService;
 	
 	@PostConstruct
@@ -29,6 +29,7 @@ public class EmpresaController {
 		}	
 	}
 	
+	@Transactional
 	public void salvar() throws Exception {
 		
 		empresaService.salvar(getEmpresa());
