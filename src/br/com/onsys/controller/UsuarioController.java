@@ -1,9 +1,11 @@
 package br.com.onsys.controller;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -12,8 +14,10 @@ import br.com.onsys.model.Usuario;
 import br.com.onsys.service.UsuarioService;
 
 @Named
-@RequestScoped
-public class UsuarioController {
+@ViewScoped
+public class UsuarioController implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Usuario usuario;
 	

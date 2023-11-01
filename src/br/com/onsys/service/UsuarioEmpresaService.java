@@ -1,5 +1,6 @@
 package br.com.onsys.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -27,9 +28,14 @@ public class UsuarioEmpresaService extends ManterEmpresaRepository <UsuarioEmpre
 	}
 
 	public List<UsuarioEmpresa> consultarUsuarioEmpresaPorUsuarioLogado(Usuario usuario) throws Exception {
-		BBTSQuery<UsuarioEmpresa> query = super.inicializaBbtsQuery();
-		query.adicionarFiltro("usuario.id", usuario.getId(), Constantes.OPERACAO_IGUAL);
-		return super.consultarPorParametrosANDList(query);
+		if(usuario == null) {
+			return Collections.emptyList();
+		} else {
+			BBTSQuery<UsuarioEmpresa> query = super.inicializaBbtsQuery();
+			query.adicionarFiltro("usuario.id", usuario.getId(), Constantes.OPERACAO_IGUAL);
+			return super.consultarPorParametrosANDList(query);
+		}
+
 	}
 
 }

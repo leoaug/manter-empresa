@@ -78,7 +78,7 @@ public class UsuarioEmpresaController implements Serializable {
 	@Transactional
 	public void salvar() throws Exception {
 		
-		usuarioEmpresaService.excluirEntidades(getUsuarioEmpresa().getUsuario().getUsuariosEmpresas());	
+		usuarioEmpresaService.excluirEntidades(usuarioService.getEntidade(getUsuarioEmpresa().getUsuario().getId()).getUsuariosEmpresas());	
 		usuarioEmpresaService.salvarUsuarioEmpresas(getUsuarioEmpresa().getUsuario(),getEmpresas().getTarget());
 		
 		onInit();
@@ -89,7 +89,7 @@ public class UsuarioEmpresaController implements Serializable {
 
 	public UsuarioEmpresa getUsuarioEmpresa() {
 		return usuarioEmpresa;
-	}
+	} 
 
 	public void setUsuarioEmpresa(UsuarioEmpresa usuarioEmpresa) {
 		this.usuarioEmpresa = usuarioEmpresa;
